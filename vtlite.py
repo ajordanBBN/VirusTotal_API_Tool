@@ -6,7 +6,6 @@
 # No Licence or warranty expressed or implied, use however you wish! 
 
 import json, urllib, urllib2, argparse, hashlib, re, sys
-from pprint import pprint
 
 class vtAPI():
     def __init__(self):
@@ -63,9 +62,8 @@ def parse(it, md5, verbose, jsondump):
   print '\tScanned on:',it['scan_date']
   
   if jsondump == True:
-    jsondumpfile = open("VTDL" + md5 + ".json", "w")
-    pprint(it, jsondumpfile)
-    jsondumpfile.close()
+    with open("VTDL" + md5 + ".json", "w") as jsondumpfile:
+        jsondumpfile.write(json.dumps(it, indent=4, separators=(',', ': ')))
     print "\n\tJSON Written to File -- " + "VTDL" + md5 + ".json"
 
   if verbose == True:
